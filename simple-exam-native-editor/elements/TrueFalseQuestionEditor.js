@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {View} from 'react-native'
+import {View, ScrollView} from 'react-native'
 import {Text, Button, CheckBox, Divider} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 import TrueFalseService from '../services/TrueFalseService'
@@ -14,6 +14,7 @@ class TrueFalseQuestionEditor extends Component {
             description: '',
             points: 0,
             isTrue: true,
+            type: 'truefalse',
             examId:''
         };
         this.createTrueFalse = this.createTrueFalse.bind(this);
@@ -54,12 +55,14 @@ class TrueFalseQuestionEditor extends Component {
             // point = this.state.points;
     newtruefalse={
         title:this.state.title,
-        desc : this.state.description,
-        isTrue : this.state.isTrue,
-        point : this.state.points
+        desciption : this.state.description,
+        answer : this.state.isTrue,
+        points : this.state.points,
+        type: this.state.type
     }
 
-        console.log("Hello logger"+newtruefalse.isTrue);
+    console.log("In react:"+this.state.isTrue);
+        console.log("Hello logger"+newtruefalse.answer);
         this.trueFalseService.createTrueFalse(newtruefalse,this.state.examId)
             .then(this.props.navigation.navigate("ExamList"));
         //document.getElementById('titleFld').value = '';
@@ -71,7 +74,7 @@ class TrueFalseQuestionEditor extends Component {
     }
     render() {
         return(
-            <View>
+            <ScrollView>
                 <Text h3>True / False Question Model</Text>
                 <FormLabel>Title</FormLabel>
                 <FormInput onChangeText={
@@ -82,11 +85,19 @@ class TrueFalseQuestionEditor extends Component {
                 </FormValidationMessage>
 
                 <FormLabel>Description</FormLabel>
-                <FormInput onChangeText={
+                <FormInput
+                    multiline={true} numberOfLines={4}
+                    onChangeText={
                     text => this.updateForm({description: text})
                 }/>
                 <FormValidationMessage>
                     Description is required
+                </FormValidationMessage>
+
+                <FormLabel>Points</FormLabel>
+                <FormInput onChangeText={points => this.updateForm({points: points})}/>
+                <FormValidationMessage>
+                    Points is required
                 </FormValidationMessage>
 
                 <CheckBox onPress={() => this.updateForm({isTrue: !this.state.isTrue})}
@@ -96,7 +107,11 @@ class TrueFalseQuestionEditor extends Component {
                            color="white"
                            title="Save"
                 onPress={this.createTrueFalse}/>
-                <Button	backgroundColor="red"
+                <Button
+                    onPress={() =>this.props
+                        .navigation
+                        .goBack()}
+                    backgroundColor="red"
                            color="white"
                            title="Cancel"/>
 
@@ -105,10 +120,19 @@ class TrueFalseQuestionEditor extends Component {
                     style={{
                         backgroundColor:
                             'blue' }} />
-                <Text h4>{this.state.title}</Text>
-                <Text>{this.state.description}</Text>
+                {/*<Text h4>{this.state.title}</Text>*/}
 
-            </View>
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                    <View style={{flex: 1}}>
+                        <Text h4>{this.state.title}</Text>
+                        <Text>{this.state.description}</Text>
+                    </View>
+                    <View style={{flex: 1}}>
+                        <Text style={{textAlign: 'right'}}>{this.state.points} pts</Text>
+                    </View>
+                </View>
+
+            </ScrollView>
         )
     }
 }

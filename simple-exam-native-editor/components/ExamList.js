@@ -61,12 +61,12 @@ class ExamList extends Component {
         let newExam;
         newExam={
             title:this.state.title,
-            desc : this.state.description,
+            description : this.state.description,
             text : this.state.text,
             widgetType : this.state.widgetType
         }
         console.log("Widget Type:"+newExam.widgetType);
-        console.log("Widget Desc:"+newExam.desc);
+        console.log("Widget Desc:"+newExam.description);
         this.examService
             .createExam
             (this.state.lessonId,newExam)

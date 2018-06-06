@@ -1,5 +1,6 @@
 let _singleton;
 const TRUEFALSE_API_URL = 'http://10.0.3.2:8080/api/exam/EID/truefalse';
+const TRUEFALSE_DEL_API_URL = 'http://10.0.3.2:8080/api/trufalse/QID';
 class TrueFalseService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)

@@ -44,7 +44,7 @@ class QuestionList extends Component {
             //       .navigate("MultipleChoiceQuestionEditor", {questionId: question.id})
             // }}
             key={index}
-            subtitle={question.description}
+            subtitle={question.desciption}
             title={question.title}/>))}
 
           <View style={{padding:15}}>
@@ -61,6 +61,9 @@ class QuestionList extends Component {
                               if(question.type === "Essay")
                                   this.props.navigation
                                       .navigate("EssayQuestionEditor", {examId: this.state.examId})
+                              if(question.type === "FillInTheBlanks")
+                                  this.props.navigation
+                                      .navigate("FillInTheBlanksEditor", {examId: this.state.examId})
                           }}
 
                           key={index} title={question.title} subtitle={question.subtitle} leftIcon={{name: question.icon}}  />

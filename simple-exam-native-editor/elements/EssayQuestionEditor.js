@@ -15,6 +15,7 @@ class EssayQuestionEditor extends React.Component {
             description: '',
             points: 0,
             answer: '',
+            type: 'essay',
             examId: ''
         }
         this.createEssay = this.createEssay.bind(this);
@@ -55,9 +56,10 @@ class EssayQuestionEditor extends React.Component {
         // point = this.state.points;
         newessay={
             title:this.state.title,
-            desc : this.state.description,
-            point : this.state.points,
-            answer : this.state.answer
+            desciption : this.state.description,
+            points : this.state.points,
+            essayAnswer : this.state.answer,
+            type: this.state.type
         }
 
         console.log("Hello logger"+newessay.title);
@@ -100,6 +102,12 @@ class EssayQuestionEditor extends React.Component {
                         {/*text => this.updateForm({answer: text})}*/}
                         {/*value={this.state.text}*/}
                         {/*/>*/}
+                <FormLabel>Points</FormLabel>
+                <FormInput onChangeText={points => this.updateForm({points: points})}/>
+                <FormValidationMessage>
+                    Points is required
+                </FormValidationMessage>
+
                 <View style={styles.textAreaContainer} >
                     <TextInput
                         style={styles.textArea}
@@ -121,7 +129,11 @@ class EssayQuestionEditor extends React.Component {
                     backgroundColor="green"
                            color="white"
                            title="Save"/>
-                <Button	backgroundColor="red"
+                <Button
+                    onPress={() =>this.props
+                        .navigation
+                        .goBack()}
+                    backgroundColor="red"
                            color="white"
                            title="Cancel"/>
 
@@ -130,9 +142,16 @@ class EssayQuestionEditor extends React.Component {
                     style={{
                         backgroundColor:
                             'blue' }} />
-                <Text h4>{this.state.title}</Text>
-                <Text>{this.state.description}</Text>
-                <Text>{this.state.answer}</Text>
+                <View style={{flex: 1, flexDirection: 'row'}}>
+                    <View style={{flex: 1}}>
+                        <Text h4>{this.state.title}</Text>
+                        <Text>{this.state.description}</Text>
+                        <Text> {this.state.answer}</Text>
+                    </View>
+                    <View style={{flex: 1}}>
+                        <Text style={{textAlign: 'right'}}>{this.state.points} pts</Text>
+                    </View>
+                </View>
 
             </ScrollView>
         )

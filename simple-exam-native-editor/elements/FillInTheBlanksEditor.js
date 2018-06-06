@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import {View, ScrollView} from 'react-native'
 import {Text, Button, CheckBox, Divider} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
-import MultipleChoiceService from '../services/MultipleChoiceService'
+import FillInTheBlanksService from '../services/FillInTheBlanksService'
 
-class MultipleChoiceQuestionEditor extends Component {
-    static navigationOptions = { title: "Multiple Choice"}
+class FillInTheBlanksEditor extends Component {
+    static navigationOptions = { title: "Fill in the blanks"}
     constructor(props) {
         super(props);
 
@@ -13,14 +13,13 @@ class MultipleChoiceQuestionEditor extends Component {
             title: '',
             description: '',
             points: 0,
-            type: 'multi',
-            options: '',
-            correctOption :'',
+            variables: '',
+            type: 'blanks',
             examId:''
         };
-        this.createMulti = this.createMulti.bind(this);
+        this.createBlanks = this.createBlanks.bind(this);
         this.setExamId = this.setExamId.bind(this);
-        this.multipleChoiceService = MultipleChoiceService.instance;
+        this.fillInTheBlanksService = FillInTheBlanksService.instance;
     }
 
     setExamId(examId) {
@@ -28,7 +27,7 @@ class MultipleChoiceQuestionEditor extends Component {
     }
 
     componentDidMount() {
-        console.log('In component did mount- Multi');
+        console.log('In component did mount- Blanks');
         const {navigation} = this.props;
         this.state.examId = navigation.getParam("examId")
         // fetch("http://10.0.3.2:8080/api/lesson/"+lessonId+"/examwidget")
@@ -38,14 +37,14 @@ class MultipleChoiceQuestionEditor extends Component {
         console.log("ExamID:"+this.state.examId)
     }
     componentWillReceiveProps(newProps){
-        console.log('In component will receive props Multi');
+        console.log('In component will receive props Blanks');
         this.setExamId(newProps.examId);
         //this.findAllExamsForLesson(newProps.lessonId)
     }
 
-    createMulti() {
+    createBlanks() {
 
-        let newmulti;
+        let newblank;
         // let desc;
         // let isTrue;
         //let newtitle;
@@ -54,18 +53,17 @@ class MultipleChoiceQuestionEditor extends Component {
         // desc = this.state.description;
         // isTrue = this.state.isTrue;
         // point = this.state.points;
-        newmulti={
+        newblank={
             title:this.state.title,
             desciption : this.state.description,
+            variables : this.state.variables,
             points : this.state.points,
-            type: this.state.type,
-            options: this.state.options,
-            correctOption: this.state.correctOption
+            type: this.state.type
         }
 
 
-        console.log("Hello logger"+newmulti.correctOption);
-        this.multipleChoiceService.createMulti(newmulti,this.state.examId)
+        console.log("Hello logger"+newblank.variables);
+        this.fillInTheBlanksService.createBlanks(newblank,this.state.examId)
             .then(this.props.navigation.navigate("ExamList"));
         //document.getElementById('titleFld').value = '';
     }
@@ -77,7 +75,7 @@ class MultipleChoiceQuestionEditor extends Component {
     render() {
         return(
             <ScrollView>
-                <Text h3>Multiple Choice Question Model</Text>
+                <Text h3>Fill in the Blanks Question Model</Text>
                 <FormLabel>Title</FormLabel>
                 <FormInput onChangeText={
                     text => this.updateForm({title: text})
@@ -102,12 +100,10 @@ class MultipleChoiceQuestionEditor extends Component {
                     Points is required
                 </FormValidationMessage>
 
-
-
                 <Button	backgroundColor="green"
                            color="white"
                            title="Save"
-                           onPress={this.createMulti}/>
+                           onPress={this.createBlanks}/>
                 <Button
                     onPress={() =>this.props
                         .navigation
@@ -138,4 +134,4 @@ class MultipleChoiceQuestionEditor extends Component {
     }
 }
 
-export default MultipleChoiceQuestionEditor
+export default FillInTheBlanksEditor

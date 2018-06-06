@@ -15,7 +15,12 @@ class AssignmentList extends Component {
             description: '',
             widgetType:'Assignment',
             text: 'AssignmentWidget',
-            lessonId:1
+            lessonId:1,
+            points:0,
+            essayAnswer:'',
+            uploadFileLink:'',
+            link:''
+
         };
         this.deleteAssign = this.deleteAssign.bind(this);
         this.createAssign = this.createAssign.bind(this);
@@ -61,9 +66,13 @@ class AssignmentList extends Component {
         let newAssign;
         newAssign={
             title:this.state.title,
-            desc : this.state.description,
+            description : this.state.description,
             text : this.state.text,
-            widgetType : this.state.widgetType
+            widgetType : this.state.widgetType,
+            points: this.state.points,
+            essayAnswer: this.state.essayAnswer,
+            uploadFileLink:this.state.uploadFileLink,
+            link:this.state.link
         }
         console.log("Widget Type:"+newAssign.widgetType);
         console.log("Widget Title:"+newAssign.title);
@@ -95,8 +104,8 @@ class AssignmentList extends Component {
                 {this.state.widgets.map(
                     (widget, index) => (
                         <ListItem
-                            onPress={() => this.props.navigation
-                                .navigate("QuestionList", {examId: widget.id})}
+                            // onPress={() => this.props.navigation
+                            //     .navigate("QuestionList", {examId: widget.id})}
                             key={index}
                             subtitle={widget.description}
                             title={widget.title}

@@ -20,6 +20,7 @@ import ExamList from './components/ExamList'
 import ExamWidgetList from './components/ExamWidgetList'
 import MultipleChoiceQuestionEditor from './elements/MultipleChoiceQuestionEditor'
 import AssignmentList from './components/AssignmentList'
+import FillInTheBlanksEditor from './elements/FillInTheBlanksEditor'
 
 
 class Home extends React.Component {
@@ -65,12 +66,12 @@ class Home extends React.Component {
                             {/*'blue'*/}
                     {/*}}/>*/}
                 {/*<EssayQuestionEditor/>*/}
-                <Divider
-                    style={{
-                        backgroundColor:
-                            'blue'
-                    }}/>
-                <MultipleChoiceQuestionEditor/>
+                {/*<Divider*/}
+                    {/*style={{*/}
+                        {/*backgroundColor:*/}
+                            {/*'blue'*/}
+                    {/*}}/>*/}
+                {/*<MultipleChoiceQuestionEditor/>*/}
             </ScrollView>
         )
     }}
@@ -136,6 +137,7 @@ const App = createStackNavigator({
     ExamWidgetList,
     QuestionList,
     TrueFalseQuestionEditor,
+    FillInTheBlanksEditor,
     MultipleChoiceQuestionEditor,
     EssayQuestionEditor,
     ScreenA,
