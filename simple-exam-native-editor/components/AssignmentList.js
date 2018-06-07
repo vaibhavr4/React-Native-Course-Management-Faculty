@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import {View, ScrollView, Alert} from 'react-native'
-import {Text, ListItem, FormLabel, FormInput, FormValidationMessage, Button, Divider, Icon} from 'react-native-elements'
+import {View, ScrollView, Alert, TextInput, StyleSheet} from 'react-native'
+import {Text, ListItem, FormLabel, FormInput, FormValidationMessage, Button, Divider, Icon, Card} from 'react-native-elements'
 import AssignmentService from '../services/AssignmentService'
+
 
 class AssignmentList extends Component {
     static navigationOptions = {title: 'Assignment'};
@@ -63,6 +64,7 @@ class AssignmentList extends Component {
     }
 
     createAssign() {
+        console.log("In create assign");
         let newAssign;
         newAssign={
             title:this.state.title,
@@ -141,7 +143,42 @@ class AssignmentList extends Component {
                         Description is required
                     </FormValidationMessage>
 
-                    <Button	buttonStyle={{
+                    <FormLabel>Points</FormLabel>
+                    <FormInput onChangeText={
+                        text => this.updateForm({points: text})
+                    }/>
+                    <FormValidationMessage>
+                        Point is required
+                    </FormValidationMessage>
+
+                    <View style={{paddingVertical: 10}}>
+                        <Text h4 style={{paddingHorizontal: 5}}>Essay answer</Text>
+                        <TextInput style={styles.box} multiline={true} numberOfLines={5}
+                                   onChangeText={
+                                       text => this.updateForm({essayAnswer: text})
+                                   }/>
+                    </View>
+                    <View style={{paddingVertical: 2, paddingBottom: 10}}>
+                        <Text h4 style={{paddingHorizontal: 5}}>Upload File</Text>
+                        <Button    buttonStyle={{
+                            backgroundColor: 'gray',
+
+                            borderColor: "transparent",
+                            width: 100,
+                            height: 15,
+                            borderWidth: 0,
+                            borderRadius: 5,
+                        }} title="Upload"
+                        />
+                    </View>
+                    <View style={{paddingVertical: 2, paddingBottom: 10}}>
+                        <Text h4 style={{paddingHorizontal: 5}}> Submit Link</Text>
+                        <TextInput onChangeText={
+                            text => this.updateForm({link: text})
+                        }/>
+                    </View>
+
+                    <Button    buttonStyle={{
                         backgroundColor: 'green',
 
                         borderColor: "transparent",
@@ -156,11 +193,46 @@ class AssignmentList extends Component {
                         style={{
                             backgroundColor:
                                 'blue' }} />
-                    <Text h4>{this.state.title}</Text>
-                    <Text>{this.state.description}</Text>
+                    <ScrollView style={{paddingVertical: 10}}>
+                        <View style={{paddingHorizontal: 5}}>
+                            <Card style={{height: 400}}>
+                                <View style={{flex: 1, flexDirection: 'row'}}>
+                                    <View style={{flex: 1}}>
+                                    <Text h4>{this.state.title}</Text>
+                                    </View>
+                                    <View style={{flex: 1}}>
+                                        <Text style={{textAlign: 'right'}}>{this.state.points} pts</Text>
+                                    </View>
+                                </View>
+                                <View style={{paddingVertical: 2}}>
+                                    <Text>{this.state.description}</Text>
+                                </View>
+                                <View style={{paddingVertical: 10}}>
+                                    <Text h4 style={{paddingHorizontal: 5}}>Essay answer</Text>
+                                    <TextInput style={styles.box} multiline={true} numberOfLines={5}/>
+                                </View>
+                                <View style={{paddingVertical: 2, paddingBottom: 10}}>
+                                    <Text h4 style={{paddingHorizontal: 5}}>Upload File</Text>
+                                    <TextInput/>
+                                </View>
+                                <View style={{paddingVertical: 2, paddingBottom: 10}}>
+                                    <Text h4 style={{paddingHorizontal: 5}}> Submit Link</Text>
+                                    <TextInput/>
+                                </View>
+                            </Card>
+                        </View>
+                    </ScrollView>
                 </View>
             </ScrollView>
         )
     }
 }
+const styles = StyleSheet.create({
+    box: {
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: '#d6d7da'
+    }
+});
+
 export default AssignmentList

@@ -1,6 +1,6 @@
 import React from 'react'
 import {View,ScrollView, TextInput , StyleSheet} from 'react-native'
-import {Text, Button, CheckBox, Divider} from 'react-native-elements'
+import {Text, Button, CheckBox, Divider, Card} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 import EssayService from '../services/EssayService'
 import TrueFalseService from "../services/TrueFalseService";
@@ -108,18 +108,12 @@ class EssayQuestionEditor extends React.Component {
                     Points is required
                 </FormValidationMessage>
 
-                <View style={styles.textAreaContainer} >
-                    <TextInput
-                        style={styles.textArea}
-                        underlineColorAndroid="transparent"
-                        placeholder={"Type your answer here.."}
-                        placeholderTextColor={"grey"}
-                        numberOfLines={10}
-                        multiline={true}
-                        onChangeText={
-                            text => this.updateForm({answer: text})}
-                        value={this.state.text}
-                    />
+                <View style={{paddingVertical: 10}}>
+                    <Text h4 style={{paddingHorizontal: 5}}>Essay answer</Text>
+                    <TextInput style={styles.box} multiline={true} numberOfLines={5}
+                               onChangeText={
+                                   text => this.updateForm({answer: text})
+                               }/>
                 </View>
 
 
@@ -141,17 +135,30 @@ class EssayQuestionEditor extends React.Component {
                 <Divider
                     style={{
                         backgroundColor:
-                            'blue' }} />
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                    <View style={{flex: 1}}>
-                        <Text h4>{this.state.title}</Text>
-                        <Text>{this.state.description}</Text>
-                        <Text> {this.state.answer}</Text>
+                            'black' }} />
+                <ScrollView style={{paddingVertical: 10}}>
+                    <View style={{paddingHorizontal: 5}}>
+                        <Card style={{height: 400}}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <View style={{flex: 1}}>
+                                    <Text h4>{this.state.title}</Text>
+                                </View>
+                                <View style={{flex: 1}}>
+                                    <Text style={{textAlign: 'right'}}>{this.state.points} pts</Text>
+                                </View>
+                            </View>
+                            <View style={{paddingVertical: 2}}>
+                                <Text>{this.state.description}</Text>
+                            </View>
+                            <View style={{paddingVertical: 10}}>
+                                <Text h4 style={{paddingHorizontal: 5}}>Essay answer</Text>
+                                <TextInput style={styles.box} multiline={true} numberOfLines={5}
+                                value={this.state.answer}/>
+                            </View>
+
+                        </Card>
                     </View>
-                    <View style={{flex: 1}}>
-                        <Text style={{textAlign: 'right'}}>{this.state.points} pts</Text>
-                    </View>
-                </View>
+                </ScrollView>
 
             </ScrollView>
         )
@@ -167,7 +174,13 @@ const styles = StyleSheet.create({
     textArea: {
         height: 150,
         justifyContent: "flex-start"
+    },
+    box: {
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: '#d6d7da'
     }
 })
+
 
 export default EssayQuestionEditor

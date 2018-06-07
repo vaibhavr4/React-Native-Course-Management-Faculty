@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {View, ScrollView} from 'react-native'
-import {Text, Button, CheckBox, Divider} from 'react-native-elements'
+import {Text, Button, CheckBox, Divider, Card} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 import TrueFalseService from '../services/TrueFalseService'
 
@@ -122,15 +122,28 @@ class TrueFalseQuestionEditor extends Component {
                             'blue' }} />
                 {/*<Text h4>{this.state.title}</Text>*/}
 
-                <View style={{flex: 1, flexDirection: 'row'}}>
-                    <View style={{flex: 1}}>
-                        <Text h4>{this.state.title}</Text>
-                        <Text>{this.state.description}</Text>
+                <ScrollView style={{paddingVertical: 10}}>
+                    <View style={{paddingHorizontal: 5}}>
+                        <Card style={{height: 400}}>
+                            <View style={{flex: 1, flexDirection: 'row'}}>
+                                <View style={{flex: 1}}>
+                                    <Text h4>{this.state.title}</Text>
+                                </View>
+                                <View style={{flex: 1}}>
+                                    <Text style={{textAlign: 'right'}}>{this.state.points} pts</Text>
+                                </View>
+                            </View>
+                            <View style={{paddingVertical: 2}}>
+                                <Text>{this.state.description}</Text>
+                            </View>
+                            <View style={{paddingVertical: 10}}>
+                                <CheckBox
+                                          checked={this.state.isTrue} title='The answer is true'/>
+                            </View>
+
+                        </Card>
                     </View>
-                    <View style={{flex: 1}}>
-                        <Text style={{textAlign: 'right'}}>{this.state.points} pts</Text>
-                    </View>
-                </View>
+                </ScrollView>
 
             </ScrollView>
         )
