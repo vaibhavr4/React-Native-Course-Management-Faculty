@@ -92,10 +92,7 @@ class AssignmentList extends Component {
 console.log("In del assign");
             this.assignService
                 .deleteAssign(widgetId)
-                .then(() => {
-                    this.findAllAssignForLesson
-                    (this.state.lessonId)
-                });
+                .then(this.props.navigation.navigate("AssignmentList",{lessonId:this.state.lessonId}));
 
     }
 
@@ -108,7 +105,7 @@ console.log("In del assign");
                     (widget, index) => (
                         <ListItem
                             onPress={() => this.props.navigation
-                                .navigate("AssignmentViewer", {assignId: widget.id})}
+                                .navigate("AssignmentViewer", {assignId: widget.id, lessonId:this.state.lessonId})}
                             key={index}
                             subtitle={widget.description}
                             title={widget.title}

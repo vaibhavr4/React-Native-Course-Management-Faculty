@@ -17,13 +17,18 @@ export default class AssignmentService {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'POST'
             }).then(function (response)
-        { return response.json(); })
+        {
+            alert("Assignment added successfully!!")
+            return response.json(); })
     }
 
     deleteAssign(assignId) {
         return fetch(ASSIGN_DEL_API_URL.replace
         ('AID', assignId), {
             method: 'delete'
+        }).then(function (response) {
+            alert("Assignment has been deleted!!");
+            return response;
         })
     }
 
