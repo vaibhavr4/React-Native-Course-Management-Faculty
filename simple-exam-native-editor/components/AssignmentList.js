@@ -46,20 +46,24 @@ class AssignmentList extends Component {
         this.findAllAssignForLesson(this.state.lessonId);
     }
     componentWillReceiveProps(newProps){
-        console.log('In component will receive props');
-        this.setLessonId(newProps.lessonId);
-        //this.findAllExamsForLesson(newProps.lessonId)
+        console.log('In component did mount-Assign');
+        const {navigation} = this.props;
+        this.state.lessonId = navigation.getParam("lessonId")
+        // fetch("http://10.0.3.2:8080/api/lesson/"+lessonId+"/examwidget")
+        //   .then(response => (response.json()))
+        //   .then(widgets => this.setState({widgets}))
+        this.findAllAssignForLesson(this.state.lessonId);
     }
 
     findAllAssignForLesson(lessonId) {
         console.log('In find all assign');
         this.assignService
             .findAllAssignForLesson(lessonId)
-            .then((widgets) => {this.setAssign(widgets)});
+            .then((widgets) => {this.setState({widgets})});
     }
 
     setAssign(widgets) {
-        console.log('In set Assign');
+        console.log('In setd Assign');
         this.setState({widgets: widgets})
     }
 
@@ -81,14 +85,11 @@ class AssignmentList extends Component {
         this.assignService
             .createAssign
             (this.state.lessonId,newAssign)
-            .then(() => {
-                this.findAllAssignForLesson
-                (this.state.lessonId);
-            })
+            .then(this.props.navigation.navigate("AssignmentList",{lessonId:this.state.lessonId}))
     }
 
     deleteAssign(widgetId) {
-
+console.log("In del assign");
             this.assignService
                 .deleteAssign(widgetId)
                 .then(() => {
@@ -106,8 +107,8 @@ class AssignmentList extends Component {
                 {this.state.widgets.map(
                     (widget, index) => (
                         <ListItem
-                            // onPress={() => this.props.navigation
-                            //     .navigate("QuestionList", {examId: widget.id})}
+                            onPress={() => this.props.navigation
+                                .navigate("AssignmentViewer", {assignId: widget.id})}
                             key={index}
                             subtitle={widget.description}
                             title={widget.title}

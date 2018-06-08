@@ -16,6 +16,7 @@ class ExamWidgetList extends Component {
     }
 
     componentDidMount() {
+        console.log("Exam widget list lesson id:"+this.state.lessonId)
         const {navigation} = this.props;
         const lessonId = navigation.getParam("lessonId")
         this.setState({lessonId});

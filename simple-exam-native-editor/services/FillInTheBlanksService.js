@@ -1,6 +1,6 @@
 let _singleton;
 const FILL_API_URL = 'http://10.0.3.2:8080/api/exam/EID/blanks';
-const FILL_DEL_API_URL = 'http://10.0.3.2:8080/api/blanks/QID';
+const FILL_DEL_API_URL = 'http://10.0.3.2:8080/api/blanks/';
 class FillInTheBlanksService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
@@ -17,9 +17,23 @@ class FillInTheBlanksService {
             },
             method: 'POST'
         }).then(function (response) {
+            alert("Question has been created successfully!!");
             return response.json();
         })
     }
+
+    deleteBlank(qid) {
+        console.log("In delete service");
+        console.log("API:"+FILL_DEL_API_URL+qid);
+        return fetch(FILL_DEL_API_URL+qid, {
+            method: 'DELETE'
+        }).then(function (response) {
+            alert("Question has been deleted!!");
+            return response;
+        })
+    }
+
+
     static get instance() {
         if(!this[_singleton])
             this[_singleton] = new FillInTheBlanksService(_singleton);

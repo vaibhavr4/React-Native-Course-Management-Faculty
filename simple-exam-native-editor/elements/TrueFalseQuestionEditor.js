@@ -13,9 +13,10 @@ class TrueFalseQuestionEditor extends Component {
             title: '',
             description: '',
             points: 0,
-            isTrue: true,
+            answer: true,
             type: 'truefalse',
-            examId:''
+            examId:'',
+            lessonId:''
         };
         this.createTrueFalse = this.createTrueFalse.bind(this);
         this.setExamId = this.setExamId.bind(this);
@@ -30,6 +31,7 @@ class TrueFalseQuestionEditor extends Component {
         console.log('In component did mount- TrueFalse');
         const {navigation} = this.props;
         this.state.examId = navigation.getParam("examId")
+        this.state.lessonId = navigation.getParam("lessonId")
         // fetch("http://10.0.3.2:8080/api/lesson/"+lessonId+"/examwidget")
         //   .then(response => (response.json()))
         //   .then(widgets => this.setState({widgets}))
@@ -56,7 +58,7 @@ class TrueFalseQuestionEditor extends Component {
     newtruefalse={
         title:this.state.title,
         desciption : this.state.description,
-        answer : this.state.isTrue,
+        answer : this.state.answer,
         points : this.state.points,
         type: this.state.type
     }
@@ -64,7 +66,7 @@ class TrueFalseQuestionEditor extends Component {
     console.log("In react:"+this.state.isTrue);
         console.log("Hello logger"+newtruefalse.answer);
         this.trueFalseService.createTrueFalse(newtruefalse,this.state.examId)
-            .then(this.props.navigation.navigate("ExamList"));
+            .then(this.props.navigation.navigate("QuestionList",{lessonId:this.state.lessonId}));
         //document.getElementById('titleFld').value = '';
     }
 
@@ -100,10 +102,10 @@ class TrueFalseQuestionEditor extends Component {
                     Points is required
                 </FormValidationMessage>
 
-                <CheckBox onPress={() => this.updateForm({isTrue: !this.state.isTrue})}
-                          checked={this.state.isTrue} title='The answer is true'/>
+                <CheckBox onPress={() => this.updateForm({answer: !this.state.answer})}
+                          checked={this.state.answer} title='The answer is true'/>
 
-                <Button	backgroundColor="green"
+                <Button backgroundColor="green"
                            color="white"
                            title="Save"
                 onPress={this.createTrueFalse}/>
@@ -138,7 +140,7 @@ class TrueFalseQuestionEditor extends Component {
                             </View>
                             <View style={{paddingVertical: 10}}>
                                 <CheckBox
-                                          checked={this.state.isTrue} title='The answer is true'/>
+                                          checked={this.state.answer} title='The answer is true'/>
                             </View>
 
                         </Card>
