@@ -58,12 +58,12 @@ class Home extends React.Component {
                                 .navigate('ScreenX',{'parameter':'some value'})}/>
                 </View>
 
-                <QuestionTypeChooser/>
-                <QuestionTypePicker/>
-                <Icons/>
-                <TextHeadings/>
+                {/*<QuestionTypeChooser/>*/}
+                {/*<QuestionTypePicker/>*/}
+                {/*<Icons/>*/}
+                {/*<TextHeadings/>*/}
 
-                <Exam/>
+                {/*<Exam/>*/}
                 {/*<TrueFalseQuestionEditor/>*/}
                 {/*<Divider*/}
                     {/*style={{*/}

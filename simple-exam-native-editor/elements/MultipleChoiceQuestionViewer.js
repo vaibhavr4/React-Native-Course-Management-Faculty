@@ -3,6 +3,7 @@ import {View, ScrollView, StyleSheet} from 'react-native'
 import {Text, Button, CheckBox, Divider, ListItem, Icon, Card} from 'react-native-elements'
 import {FormLabel, FormInput, FormValidationMessage} from 'react-native-elements'
 import MultipleChoiceService from '../services/MultipleChoiceService'
+import  RadioForm from 'react-native-simple-radio-button';
 
 class MultipleChoiceQuestionViewer extends Component {
     static navigationOptions = { title: "Multiple Choice"}
@@ -140,83 +141,19 @@ class MultipleChoiceQuestionViewer extends Component {
             .then(this.props.navigation.navigate("QuestionList",{lessonId:this.state.lessonId}))
     }
 
+    renderRadio() {
+        let radioProps = []
+        radioProps= this.state.multiview.options.split(";");
+        console.log("RADIO:"+radioProps)
+return radioProps
+
+    }
     render() {
+
         return(
+
+
             <ScrollView>
-                {/*<FormLabel>Title</FormLabel>*/}
-                {/*<FormInput onChangeText={*/}
-                    {/*text => this.updateForm({title: text})*/}
-                {/*}/>*/}
-                {/*<FormValidationMessage>*/}
-                    {/*Title is required*/}
-                {/*</FormValidationMessage>*/}
-
-                {/*<FormLabel>Description</FormLabel>*/}
-                {/*<FormInput onChangeText={*/}
-                    {/*text => this.updateForm({description: text})*/}
-                {/*}/>*/}
-                {/*<FormValidationMessage>*/}
-                    {/*Description is required*/}
-                {/*</FormValidationMessage>*/}
-
-                {/*<FormLabel>Points</FormLabel>*/}
-                {/*<FormInput onChangeText={points => this.updateForm({points: points})}/>*/}
-                {/*<FormValidationMessage>*/}
-                    {/*Points is required*/}
-                {/*</FormValidationMessage>*/}
-
-                {/*<FormLabel>Choices</FormLabel>*/}
-                {/*<FormInput onChangeText={*/}
-                    {/*text => this.updateForm({options: text})*/}
-                {/*}/>*/}
-                {/*<FormValidationMessage>*/}
-                    {/*Choice is required*/}
-                {/*</FormValidationMessage>*/}
-                {/*<Button title="Add Choice"*/}
-                        {/*onPress={() => this.addChoice*/}
-                        {/*(this.state.options)}/>*/}
-
-                {/*{this.state.choices.map(*/}
-                    {/*(choice, index) => (*/}
-                        {/*<ListItem*/}
-                            {/*key={index}*/}
-                            {/*title={choice.option}*/}
-                            {/*leftIcon={<Icon*/}
-                                {/*reverse*/}
-                                {/*name='circle'*/}
-                                {/*type='font-awesome'*/}
-                                {/*size={2}*/}
-                                {/*onPress={() => this.setCorrectOption(index, choice)}*/}
-                                {/*style={{paddingRight:20}}*/}
-                            {/*/>}*/}
-                            {/*rightIcon={ <Icon*/}
-                                {/*reverse*/}
-                                {/*name='trash'*/}
-                                {/*type='font-awesome'*/}
-                                {/*size={10}*/}
-                                {/*onPress={() => this.deleteOption(index)}*/}
-                                {/*style={{paddingRight:20}}*/}
-                            {/*/>}*/}
-                        {/*/>*/}
-                    {/*))}*/}
-
-                {/*<FormValidationMessage>*/}
-                    {/*Click on the left icon to chose the correct option*/}
-                {/*</FormValidationMessage>*/}
-
-
-                {/*<Button*/}
-                    {/*onPress={this.createMulti}*/}
-                    {/*backgroundColor="green"*/}
-                    {/*color="white"*/}
-                    {/*title="Save"/>*/}
-                {/*<Button*/}
-                    {/*onPress={() =>this.props*/}
-                        {/*.navigation*/}
-                        {/*.goBack()}*/}
-                    {/*backgroundColor="red"*/}
-                    {/*color="white"*/}
-                    {/*title="Cancel"/>*/}
 
                 <Text h4>Preview</Text>
                 <Divider
@@ -225,7 +162,7 @@ class MultipleChoiceQuestionViewer extends Component {
                             'blue' }} />
                 {/*<Text h4>{this.state.title}</Text>*/}
 
-                <ScrollView style={{paddingVertical: 10}}>
+                <View style={{paddingVertical: 10}}>
                     <View style={{paddingHorizontal: 5}}>
                         <Card style={{height: 400}}>
                             <View style={{flex: 1, flexDirection: 'row'}}>
@@ -239,25 +176,43 @@ class MultipleChoiceQuestionViewer extends Component {
                             <View style={{paddingVertical: 2}}>
                                 <Text>{this.state.multiview.desciption}</Text>
                             </View>
-                            {/*<View>*/}
-                                {/*{this.state.multiview.choices.map(*/}
-                                    {/*(choice, index) => (*/}
-                                        {/*<ListItem*/}
-                                            {/*key={index}*/}
-                                            {/*title={choice.option}*/}
-                                            {/*leftIcon={<Icon*/}
-                                                {/*reverse*/}
-                                                {/*name='circle'*/}
-                                                {/*type='font-awesome'*/}
-                                                {/*size={2}*/}
-                                                {/*// onPress={() => this.setCorrectOption(index, choice)}*/}
-                                                {/*style={{paddingRight:20}}*/}
-                                            {/*/>}*/}
+                            {/*<View style={styles.container}>*/}
+                                {/*<View style={{ marginVertical: 10 }} >*/}
+                                    {/*<RadioForm radio_props={this.renderRadio()}*/}
+                                               {/*initial={0}*/}
+                                               {/*//style={{ width: 350 - 30 }}*/}
 
-                                        {/*/>))}*/}
+                                               {/*itemShowKey="label"*/}
+                                               {/*itemRealKey="value"*/}
+                                               {/*circleSize={16}*/}
+                                               {/*formHorizontal={true}*/}
+                                               {/*labelHorizontal={true}*/}
+                                        {/*// animation={'bounceIn'}*/}
+                                               {/*style={{alignItems:'flex-start'}}*/}
+
+                                    {/*/>*/}
+
+                                {/*</View>*/}
                             {/*</View>*/}
 
-                            <View style={styles.container}>
+                            <View>
+                                {this.renderRadio().map(
+                                    (choice) => (
+                                        <ListItem
+                                            key={choice}
+                                            title={choice}
+                                            leftIcon={<Icon
+                                                reverse
+                                                name='circle'
+                                                type='font-awesome'
+                                                size={2}
+                                                // onPress={() => this.setCorrectOption(index, choice)}
+                                                style={{paddingRight:20}}
+                                            />}
+
+                                        />))}
+                            </View>
+                            <View style={styles.containers}>
 
                                 <View style={styles.buttonContainer}>
                                     <Button	 backgroundColor="red"
@@ -277,16 +232,23 @@ class MultipleChoiceQuestionViewer extends Component {
 
                         </Card>
                     </View>
-                </ScrollView>
 
+                </View>
 
             </ScrollView>
+
+
+
+
+
+
+
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    containers: {
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
@@ -303,5 +265,4 @@ const styles = StyleSheet.create({
 
 
 export default MultipleChoiceQuestionViewer
-
 
