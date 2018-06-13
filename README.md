@@ -1,5 +1,5 @@
-# Webdev-Summer1-React-Native
-React native repo for adding exam and assignment widgets
+# React-Native Application
+React native repo for traversing through the courses and lessons. Adding exams and assignment widgets by the Faculty where the exams can be essay questions, fill in the blanks, multiple choice or true or false
 
 ## The server for this project is in below link;
-### https://github.com/vaibhavr5/Web-dev-Summer1-2018
+### https://github.com/vaibhavr4/
